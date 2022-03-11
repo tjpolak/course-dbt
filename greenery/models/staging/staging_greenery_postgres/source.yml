@@ -1,0 +1,39 @@
+version: 2
+
+sources:
+
+  - name: greenery_postgres # name of the source 
+    schema: public # this is the schema our raw data lives in
+    database: dbt # this is the name of our database
+
+    quoting:
+      database: false
+      schema: false
+      identifier: false
+
+    freshness:
+      warn_after: {count: 24, period: hour}
+      error_after: {count: 48, period: hour}
+
+    tables:
+      - name: addresses
+        description: >
+          Contains delivery address information
+      - name: events
+        description: >
+          Contains browsing session event information
+      - name: order_items
+        description: >
+          Contains line item order information
+      - name: orders
+        description: >
+          Contains order information
+      - name: products
+        description: >
+          Contains product information
+      - name: promos
+        description: >
+          Contains promo code information
+      - name: users
+        description: >
+          Contains user information
