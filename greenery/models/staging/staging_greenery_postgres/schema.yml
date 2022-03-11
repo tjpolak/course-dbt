@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: stg_addresses
-    description: Attributes realted to the delivery address 
+    description: Attributes related to the delivery address 
     columns:
       - name: address_id
         description: UUID for each unique address on platform
