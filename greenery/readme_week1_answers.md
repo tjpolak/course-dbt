@@ -61,7 +61,7 @@ from
 | 3+          | 71         |
 
 ```
-elect
+select
   sum(case when order_counts.order_count = 1 then 1 else 0 end) as count_one_purchase,
   sum(case when order_counts.order_count = 2 then 1 else 0 end) as count_two_purchase,
   sum(case when order_counts.order_count >= 3 then 1 else 0 end) as count_three_plus_purchase
