@@ -1,11 +1,19 @@
-{{
-  config(
-    materialized='table'
-  )
-}}
+WITH base_promos AS (
+  SELECT
+    *
+  FROM
+    {{ source('greenery_postgres', 'promos') }}
+),
 
-SELECT 
+renamed_promos AS (
+  SELECT 
     promo_id,
-    discount,
-    status
-FROM {{ source('greenery_postgres', 'promos') }}
+    discount as promo_discount,
+    status as promo_status
+FROM base_promos
+)
+
+SELECT
+  *
+FROM
+  renamed_promos
