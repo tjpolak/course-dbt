@@ -4,59 +4,72 @@ models:
   - name: stg_addresses
     description: Attributes related to the delivery address 
     columns:
-      - name: address_id
+      - name: address_guid
         description: UUID for each unique address on platform
-      - name: address
+        tests:
+          - unique
+          - not_null
+      - name: address_street_name
         description: The first few lines of the address
-      - name: zipcode
+      - name: address_zipcode
         description: The zipcode of the address
-      - name: state
+      - name: address_state
         description: State this delivery address is based in
-      - name: country
+      - name: address_country
         description: Country this delivery address is based in
   
   - name: stg_events
     description: Attributes related to the event tracking of browsing sessions
     columns:
-      - name: event_id
+      - name: event_guid
         description: UUID of each unique event on the platform
-      - name: session_id
+        tests:
+          - unique
+          - not_null
+      - name: session_guid
         description: UUID of each browsing session on the platform which can contain many events
-      - name: user_id
+      - name: user_guid
         description: UUID of the user that this event is associated with
       - name: page_url
         description: URL that the event happened on
-      - name: created_at
+      - name: created_at_utc
         description: Timestamp of the event
-      - name: event_type
+      - name: order_guid
         description: Type of event
-      - name: order_id
+      - name: order_guid
         description: If the event is specific to an order (mostly used for checkout)
-      - name: product_id
+      - name: product_guid
         description: If the event is specific to a product
   
   - name: stg_order_items
     description: Line item information about a specific order, product, and quantity
     columns:
-      - name: order_id
+      - name: order_guid
         description: OrderId of this order
-      - name: product_id
+        tests:
+          - not_null
+      - name: product_guid
         description: ProductId of a single item in this order
-      - name: quantity
+        tests:
+          - not_null
+      - name: order_item_quantity
         description: Number of units of the product in this order
   
   - name: stg_orders
     description: Information about an order such as order cost, shipping cost, total cost, and tracking information
     columns:
-      - name: order_id
+      - name: order_guid
         description: UUID for each unique order on platform
-      - name: user_id
+        tests:
+          - unique
+          - not_null
+      - name: user_guid
         description: UserId of the user that placed this order
       - name: promo_id
         description: PromoId if any was used in the order
-      - name: address_id
+      - name: shipped_address_guid
         description: Delivery address for this order
-      - name: created_at
+      - name: created_at_utc
         description: Timestamp when the order was created
       - name: order_cost
         description: Dollar about of the items in the order
@@ -64,27 +77,30 @@ models:
         description: Cost of shipping for the order
       - name: order_total
         description: Total cost of the order including shipping
-      - name: tracking_id
+      - name: tracking_guid
         description: Tracking number for the order/package
       - name: shipping_service
         description: Company that was used for shipping
-      - name: estimated_delivery_at
+      - name: estimated_delivery_at_utc
         description: Estimated date of delivery
-      - name: delivered_at
+      - name: delivered_at_utc
         description: Actual timestamp of delivery
-      - name: status
+      - name: order_status
         description: Status of the order
   
   - name: stg_products
     description: Attributes of each prdouct such as name, price, and inventory count
     columns:
-      - name: product_id
+      - name: product_guid
         description: UUID for each unique product on platform
-      - name: name
+        tests:
+          - unique
+          - not_null
+      - name: product_name
         description: Name of the product
-      - name: price
+      - name: product_price
         description: Price of the product
-      - name: inventory
+      - name: product_inventory_level
         description: Amount of the inventory we have for this product
 
   - name: stg_promos
@@ -92,27 +108,33 @@ models:
     columns:
       - name: promo_id
         description: Each unique promocode on platform
-      - name: discount
+        tests:
+          - unique
+          - not_null
+      - name: promo_discount
         description: Absolute dollar amount that is given off with the code
-      - name: status
+      - name: promo_status
         description: Is the promo code active or disabled
 
   - name: stg_users
     description: Demographic information about the users such as name, email, and phone number
     columns:
-      - name: user_id
+      - name: user_guid
         description: UUID for each unique user on platform
-      - name: first_name
+        tests:
+          - unique
+          - not_null
+      - name: user_first_name
         description: First name of the user
-      - name: last_name
+      - name: user_last_name
         description: Last name of the user
-      - name: email
+      - name: user_email
         description: Email address of the user
-      - name: phone_number
+      - name: user_phone_number
         description: Phone number of the user
-      - name: created_at
+      - name: created_at_utc
         description: Timestamp the user was created
-      - name: updated_at
+      - name: updated_at_utc
         description: Timestamp the user was last updated
-      - name: address_id
+      - name: address_guid
         description: Default delivery address for the user

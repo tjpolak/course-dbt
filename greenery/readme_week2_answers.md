@@ -41,8 +41,11 @@ WITH user_order_count AS (
     - fact_user_sessions: fact table used to track the event sessions and user information associated with the events
 
 ### Question 4: What assumptions are you making about each model? (i.e. why are you adding each test?)
+- The tests I added were mainly around the primary key of each table in staging and assuming it should be unique and not null.
 
 ### Question 5: Did you find any “bad” data as you added and ran tests on your models? How did you go about either cleaning the data in the dbt model or adjusting your assumptions/tests?
+- I didn't run into any data issues, just that in fact tables the promo_id column could be and was null when there wasn't a discount attached to it.  I cleaned that up by adding a 'No Promo' value.
 
 ### Question 6: Your stakeholders at Greenery want to understand the state of the data each day. Explain how you would ensure these tests are passing regularly and how you would alert stakeholders about bad data getting through.
+- I would use the dbt build command each day/night which would run the tests after the run of the models.  If anything failed, I would have notifications and logging that would alert the Analytics team to issues in the data that needed to be looked at.
 

@@ -16,6 +16,7 @@ SELECT
     fact_orders.order_quantity,
     fact_orders.order_cost,
     fact_orders.shipping_cost,
+    fact_orders.order_discount,
     fact_orders.order_total,
     fact_orders.order_status,
     CASE WHEN dim_user.lifetime_order_count = 1 THEN true ELSE false END AS is_new_customer,
