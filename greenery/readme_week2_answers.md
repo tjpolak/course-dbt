@@ -2,7 +2,7 @@
 
 ### Question 1: What is our user repeat rate?
 
-- Answer: 78.84%
+- Answer: 79.84%
 
 ```
 WITH user_order_count AS (
