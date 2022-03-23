@@ -2,13 +2,13 @@
 ├── dbt_project.yml
 └── models
     └── clean
-            └── shopify
-                ├── base
-                |   ├── base_shopify_order_types.sql
-                ├── raw_shopify.yml
-                ├── clean_shopify.yml
-                ├── stg_shopify_customers.sql
-                └── stg_shopify_orders.sql
+        └── shopify
+            ├── base
+            |   ├── base_shopify_order_types.sql
+            ├── raw_shopify.yml
+            ├── clean_shopify.yml
+            ├── stg_shopify_customers.sql
+            └── stg_shopify_orders.sql
     ├── curated
     |   └── core
     |       ├── intermediate
