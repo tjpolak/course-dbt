@@ -1,10 +1,13 @@
 ```
 ├── dbt_project.yml
 └── models
-    └── clean
+    └── cleaned
         └── shopify
             ├── base
             |   ├── base_shopify_order_types.sql
+            ├── intermediate
+            |   ├── shopify_intermediate.yml
+            |   ├── int_shopify_customer_metrics.sql
             ├── raw_shopify.yml
             ├── clean_shopify.yml
             ├── stg_shopify_customers.sql
