@@ -45,3 +45,6 @@ models:
         +materialized: table
       product:
         +materialized: table
+
+on-run-end:
+  - "{{ grant_usage_on_schemas(target.schema, 'reporting') }}"

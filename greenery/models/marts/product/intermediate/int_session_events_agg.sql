@@ -5,6 +5,8 @@ WITH fact_events AS (
         {{ ref('fact_events') }}
 )
 
+
+
 SELECT
     session_guid,
     user_guid,
@@ -14,5 +16,4 @@ SELECT
     SUM(CASE WHEN event_type = 'page_view' THEN 1 ELSE 0 END) AS page_view_count
 FROM
     fact_events
-GROUP BY
-    1, 2
+{{ dbt_utils.group_by(n=2) }}

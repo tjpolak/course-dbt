@@ -1,6 +1,6 @@
-# DBT Week 2 Questions and Answers
+# DBT Week 3 Questions and Answers
 
-### Question 1a: What is our overall conversion rate?
+### Part 1a: What is our overall conversion rate?
 
 - Answer: 62.46%
 
@@ -19,7 +19,7 @@ FROM
   session_count
 ```
 
-### Question 1b: What is our conversion rate by product?
+### Part 1b: What is our conversion rate by product?
 
 - Answer:
 
@@ -77,69 +77,19 @@ FROM
 ORDER BY 3 DESC
 ```
 
-### Question 3: On average, how long does an order take from being placed to being delivered?
+### Part 1c: Why might certain products be converting at higher/lower rates than others? Note: we don't actually have data to properly dig into this, but we can make some hypotheses
 
-- Answer: 3 days 21:24:11.803279
+- Answer: I would like to see the campaign and ad data from social media and the email platform.  My guess would be that there may have been some marketing campaigns that were geared towards some of the products recently that would cause more attention than others.  In addition, some of the products may be placed at the front of the website during these campaigns which would cause more attention as well.
 
-```
-select
-  avg(delivered_orders.delivery_wait_time) AS avg_delivery_wait_time
-from
-(
-  select
-    created_at,
-    delivered_at,
-    age(delivered_at, created_at) as delivery_wait_time,
-    status
-  from
-    dbt_tj_p.stg_orders
-  where
-    status = 'delivered'
-) delivered_orders
-```
+### Part 2: Create a macro to simplify part of a model(s).
 
+### Part 3: Add a post hook to your project to apply grants to the role “reporting”.
 
-### Question 4: How many users have only made one purchase? Two purchases? Three+ purchases?
+- Answer: I created a macro called grant_usage_on_schemas and use this in a post-hook call to grant usage and select to all tables in the schema to reporting
 
-| orders      | count |
-| ----------- | ----------- |
-| 1           | 25          |
-| 2           | 28          |
-| 3+          | 71         |
+### Part 4: Install a package (i.e. dbt-utils, dbt-expectations) and apply one or more of the macros to your project.
 
-```
-select
-  sum(case when order_counts.order_count = 1 then 1 else 0 end) as count_one_purchase,
-  sum(case when order_counts.order_count = 2 then 1 else 0 end) as count_two_purchase,
-  sum(case when order_counts.order_count >= 3 then 1 else 0 end) as count_three_plus_purchase
-from
-(
-  select
-    user_id,
-    count(*) as order_count
-  from
-    dbt_tj_p.stg_orders
-  group by
-    1
-  ) order_counts
-```
+- Answer: I installed both packages in my dbt project.  For the dbt-utilis, I used the group by functionbality in my int_models where I was aggregated the data
+and needed a group by n.  
 
-
-### Question 5: On average, how many unique sessions do we have per hour?
-
-- Answer: 16.33
-
-```
-select
-  round(avg(session_count.num_of_sessions), 2) AS avg_session
-from
-(
-  select
-    date_trunc('day',created_at) as session_date,
-    date_trunc('hour', created_at) as hour_of_day,
-    count(distinct session_id) AS num_of_sessions
-  from
-    dbt_tj_p.stg_events
-  group by 1, 2
-) session_count
-```
+### Part 5: Show (using dbt docs and the model DAGs) how you have simplified or improved a DAG using macros and/or dbt packages.

@@ -25,5 +25,4 @@ left outer join
   stg_orders
 on
   stg_users.user_guid = stg_orders.user_guid
-group by
-  stg_users.user_guid
+{{ dbt_utils.group_by(n=1) }}

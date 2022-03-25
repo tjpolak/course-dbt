@@ -27,5 +27,4 @@ LEFT OUTER JOIN
 ON
     fact_events.order_guid = fact_order_line_items.order_guid
     AND COALESCE(fact_events.product_guid, fact_order_line_items.product_guid) = fact_order_line_items.product_guid
-GROUP BY
-    1, 2, 3
+{{ dbt_utils.group_by(n=3) }}
