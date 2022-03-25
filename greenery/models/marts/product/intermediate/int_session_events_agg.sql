@@ -8,7 +8,6 @@ WITH fact_events AS (
 SELECT
     session_guid,
     user_guid,
-    created_at_utc,
     SUM(CASE WHEN event_type = 'add_to_cart' THEN 1 ELSE 0 END) AS add_to_cart_count,
     SUM(CASE WHEN event_type = 'checkout' THEN 1 ELSE 0 END) AS checkout_count,
     SUM(CASE WHEN event_type = 'package_shipped' THEN 1 ELSE 0 END) AS package_shipped_count,
@@ -16,4 +15,4 @@ SELECT
 FROM
     fact_events
 GROUP BY
-    1, 2, 3
+    1, 2
