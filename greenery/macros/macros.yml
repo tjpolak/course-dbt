@@ -1,0 +1,7 @@
+version: 2
+
+macros:
+  - name: grant_usage_on_schemas
+    description: This macro takes the schema and group name as parameters and grants usage and select on all tables for that role.
+    docs:
+      show: true

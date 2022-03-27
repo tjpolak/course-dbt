@@ -83,6 +83,8 @@ ORDER BY 3 DESC
 
 ### Part 2: Create a macro to simplify part of a model(s).
 
+- Answer: I created a macro in the int_session_events_agg.sql file that looped through the event type columns.  I also created a macro in the macros folder called grant_usage_on_schemas.sql that I used to call in the post hooks to grant acess to reporting.
+
 ### Part 3: Add a post hook to your project to apply grants to the role “reporting”.
 
 - Answer: I created a macro called grant_usage_on_schemas and use this in a post-hook call to grant usage and select to all tables in the schema to reporting
@@ -93,3 +95,5 @@ ORDER BY 3 DESC
 and needed a group by n.  
 
 ### Part 5: Show (using dbt docs and the model DAGs) how you have simplified or improved a DAG using macros and/or dbt packages.
+
+- Answer: The DAG is attached to the project submission in slack.

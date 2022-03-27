@@ -5,15 +5,30 @@ WITH fact_events AS (
         {{ ref('fact_events') }}
 )
 
+{% set event_type_query %}
+SELECT DISTINCT(event_type) FROM {{ ref('fact_events') }}
+order by 1
+{% endset %}
+
+{% set results = run_query(event_type_query) %}
+
+{% if execute %}
+{% set results_list = results.columns[0].values() %}
+{% else %}
+{% set results_list = [] %}
+{% endif %}
+
 
 
 SELECT
     session_guid,
     user_guid,
-    SUM(CASE WHEN event_type = 'add_to_cart' THEN 1 ELSE 0 END) AS add_to_cart_count,
-    SUM(CASE WHEN event_type = 'checkout' THEN 1 ELSE 0 END) AS checkout_count,
-    SUM(CASE WHEN event_type = 'package_shipped' THEN 1 ELSE 0 END) AS package_shipped_count,
-    SUM(CASE WHEN event_type = 'page_view' THEN 1 ELSE 0 END) AS page_view_count
+    {% for event_type in results_list %}
+    SUM(CASE WHEN event_type = '{{event_type}}' THEN 1 ELSE 0 END) AS {{event_type}}_count
+        {% if not loop.last %}
+        ,
+        {% endif %}
+    {% endfor %}
 FROM
     fact_events
 {{ dbt_utils.group_by(n=2) }}
