@@ -1,29 +1,29 @@
 ```
 ├── dbt_project.yml
 └── models
-    └── cleaned
+    └── stage
         └── shopify
-            ├── base
-            |   ├── base_shopify_order_types.sql
             ├── intermediate
             |   ├── shopify_intermediate.yml
             |   ├── int_shopify_customer_metrics.sql
-            ├── raw_shopify.yml
-            ├── clean_shopify.yml
-            ├── stg_shopify_customers.sql
-            └── stg_shopify_orders.sql
-    ├── curated
+            ├── stage
+            |   ├── base_shopify_order_types.sql
+            |   ├── shopify_stage.yml
+            |   ├── stg_shopify_customers.sql
+            |   ├── stg_shopify_orders.sql
+            ├── shopify_raw.yml
+    ├── mart
     |   └── core
     |       ├── intermediate
     |       |   ├── core_intermediate.yml
     |       |   ├── int_order_adjustments.sql
     |       |   ├── int_customers_unioned.sql
-    |       └── curated_core.yml
+    |       └── mart_core.yml
     |       └── dim_customer.sql
     |       └── fact_orders.sql
     |   └── finance
     |   └── marketing
-    |       └── curated_marketing.yml
+    |       └── mart_marketing.yml
     |       └── fact_user_orders.sql
     |   └── product
 ```
