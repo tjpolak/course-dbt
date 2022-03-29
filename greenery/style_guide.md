@@ -69,7 +69,10 @@ final AS (
 
     FROM shopify_customers
 
-    LEFT OUTER JOIN customer_orders ON shopify_customers.customer_key = customer_orders.customer_key
+    LEFT OUTER JOIN 
+        customer_orders 
+    ON 
+        shopify_customers.customer_key = customer_orders.customer_key
 
 )
 
