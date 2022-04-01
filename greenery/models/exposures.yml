@@ -1,0 +1,14 @@
+version: 2
+
+exposures:
+  - name: Product Funnel Dashboard
+    type: dashboard
+    maturity: low
+    description: >
+      View on how users are moving through the product funnel and metrics
+      to understand where the greatest drop off exists    
+    depends_on:
+      - ref('fact_user_sessions')     
+    owner:
+      name: TJ Polak
+      email: tpolak@greenery.com
